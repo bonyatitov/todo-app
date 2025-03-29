@@ -7,23 +7,8 @@ import Footer from "./components/footer";
 
 class App extends Component {
   state = {
-    taskList: [
-      {
-        id: 1,
-        condition: false,
-        description: 'Задача 1',
-      },
-      {
-        id: 2,
-        condition: false,
-        description: 'Задача 2',
-      },
-      {
-        id: 3,
-        condition: false,
-        description: 'Задача 3',
-      }
-    ],
+    taskList: [],
+    filter: 'all',
   }
 
   setCompleted = (id) => {
@@ -45,6 +30,47 @@ class App extends Component {
     })
   }
 
+  createTask(label) {
+    let uniqueId = Math.floor(Math.random() * 100000);
+
+    return {
+      id: uniqueId,
+      condition: false,
+      description: label,
+    }
+  }
+
+  addTask = (text) => {
+    const newItem = this.createTask(text);
+
+    this.setState(({ taskList }) => {
+      const updateList = [newItem, ...taskList];
+      return {taskList: updateList};
+    });
+  }
+
+  setFilter = (filter) => {
+    this.setState({ filter });
+  }
+
+  getFiltredTasks = () => {
+    const { taskList, filter } = this.state;
+    if (filter === 'active') return taskList.filter((task) => !task.condition);
+    if (filter === 'completed') return taskList.filter((task) => task.condition);
+    return taskList;
+  }
+
+  clearCompleted = () => {
+    this.setState(({ taskList }) => {
+      const updateList = taskList.filter(task => !task.condition);
+      return { taskList: updateList };
+    })
+  }
+
+  counterActiveTask = () => {
+    return this.state.taskList.filter(task => !task.condition).length;
+  }
+
   render() {
     return (
       <div className="App">
@@ -52,15 +78,21 @@ class App extends Component {
           <header className="header">
             <h1>todos</h1>
             {/* Форма для добавления */}
-            <NewTaskForm />
+            <NewTaskForm 
+            addTask={ this.addTask }/>
           </header>
         <section className="main">
           <TaskList 
-          tasks={ this.state.taskList }
+          tasks={ this.getFiltredTasks() }
           setCompleted={ this.setCompleted }
           deleteTask={ this.deleteTask }
           />
-          <Footer />
+          <Footer 
+            setFilter={ this.setFilter }
+            activeFilter={ this.state.filter }
+            clearCompleted={ this.clearCompleted }
+            counterActiveTask={ this.counterActiveTask() }
+          />
         </section>
       </section>
       </div>
