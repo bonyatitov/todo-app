@@ -8,14 +8,15 @@ function TaskList({ tasks, setCompleted, deleteTask }) {
     <ul className="todo-list">
       {tasks.map((task) => {
         return (
-          <Task
-            key={task.id}
-            {...task}
-            condition={task.condition}
-            setCompleted={setCompleted}
-            deleteTask={deleteTask}
-            taskDate={task.date}
-          />
+          <li key={task.id} className={task.condition ? 'completed' : ''}>
+            <Task
+              {...task}
+              condition={task.condition}
+              setCompleted={setCompleted}
+              deleteTask={deleteTask}
+              taskDate={task.date}
+            />
+          </li>
         );
       })}
     </ul>

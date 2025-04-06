@@ -12,17 +12,15 @@ class Task extends Component {
     const created = formatDistanceToNow(taskDate, { addSuffix: true });
     setInterval(() => created, 1000);
     return (
-      <li className={condition ? 'completed' : ''}>
-        <div className="view">
-          <input onChange={() => setCompleted(id)} className="toggle" type="checkbox" checked={condition} />
-          <label>
-            <span className="description">{description}</span>
-            <span className="created">{created}</span>
-          </label>
-          <button className="icon icon-edit"></button>
-          <button onClick={() => deleteTask(id)} className="icon icon-destroy"></button>
-        </div>
-      </li>
+      <div className="view">
+        <input onChange={() => setCompleted(id)} className="toggle" type="checkbox" checked={condition} />
+        <label>
+          <span className="description">{description}</span>
+          <span className="created">{created}</span>
+        </label>
+        <button className="icon icon-edit"></button>
+        <button onClick={() => deleteTask(id)} className="icon icon-destroy"></button>
+      </div>
     );
   }
 }
