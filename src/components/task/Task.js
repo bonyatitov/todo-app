@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
+
+import Timer from '../timer';
 import './task.css';
 
 class Task extends Component {
@@ -8,14 +10,16 @@ class Task extends Component {
   }
 
   render() {
-    const { id, description, condition, setCompleted, deleteTask, taskDate } = this.props;
+    const { id, description, condition, setCompleted, deleteTask, taskDate, timeMinutes, timeSecundes } = this.props;
     const created = formatDistanceToNow(taskDate, { addSuffix: true });
     setInterval(() => created, 1000);
+    console.log(timeMinutes, timeSecundes);
     return (
       <div className="view">
         <input onChange={() => setCompleted(id)} className="toggle" type="checkbox" checked={condition} />
         <label>
-          <span className="description">{description}</span>
+          <span className="description">{description || 'Empty'}</span>
+          <Timer timeMinutes={Number(timeMinutes)} timeSecundes={Number(timeSecundes)} condition={condition} />
           <span className="created">{created}</span>
         </label>
         <button className="icon icon-edit"></button>

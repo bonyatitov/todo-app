@@ -33,17 +33,19 @@ class App extends Component {
     });
   }
 
-  createTask(label) {
+  createTask(label, timeMinutes, timeSecundes) {
     return {
       id: Math.floor(Math.random() * 100000),
       condition: false,
       description: label,
       date: new Date(),
+      timeMinutes: timeMinutes || '',
+      timeSecundes: timeSecundes || '',
     };
   }
 
-  addTask(text) {
-    const newItem = this.createTask(text);
+  addTask(text, timeMinutes, timeSecundes) {
+    const newItem = this.createTask(text, timeMinutes, timeSecundes);
     this.setState(({ taskList }) => ({ taskList: [newItem, ...taskList] }));
   }
 

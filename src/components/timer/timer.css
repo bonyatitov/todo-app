@@ -1,0 +1,37 @@
+.timer {
+  min-width: 100px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+
+.icon-play {
+	font-size: 18px;
+}
+
+.icon-pause:after {
+	content: '⏸';
+  display: flex;
+  margin-top: -5px;
+  font-size: 20px;
+  align-items: center;
+}
+
+.icon-play:after {
+	content: '▶';
+  display: flex;
+  margin-top: -5px;
+  font-size: 20px;
+  align-items: center;
+}
+
+.time {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  font-size: 18px;
+}
