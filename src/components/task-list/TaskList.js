@@ -3,7 +3,7 @@ import React from 'react';
 import Task from '../task';
 import './task-list.css';
 
-function TaskList({ tasks, setCompleted, deleteTask }) {
+function TaskList({ tasks, setCompleted, deleteTask, toggleTimer, updateTaskTime }) {
   return (
     <ul className="todo-list">
       {tasks.map((task) => {
@@ -15,6 +15,8 @@ function TaskList({ tasks, setCompleted, deleteTask }) {
               setCompleted={setCompleted}
               deleteTask={deleteTask}
               taskDate={task.date}
+              toggleTimer={toggleTimer}
+              updateTaskTime={updateTaskTime}
             />
           </li>
         );

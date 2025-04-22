@@ -17,7 +17,36 @@ class App extends Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.setFilter = this.setFilter.bind(this);
     this.clearCompleted = this.clearCompleted.bind(this);
+    this.updateTaskTime = this.updateTaskTime.bind(this);
+    this.toggleTimer = this.toggleTimer.bind(this);
   }
+
+  toggleTimer(id) {
+    this.setState(({ taskList }) => {
+      const updateList = taskList.map((task) => {
+        if (task.id === id) {
+          return { ...task, active: !task.active };
+        }
+        return task;
+      });
+      return { taskList: updateList };
+    });
+  }
+
+  updateTaskTime(id, active, timeMinutes, timeSecundes) {
+    this.setState(({ taskList }) => {
+      const updateList = taskList.map((item) => {
+        if (item.id === id) {
+          return { ...item, active, timeMinutes, timeSecundes };
+        } else {
+          return item;
+        }
+      });
+      return { taskList: updateList };
+    });
+  }
+
+  // END TIMER
 
   setCompleted(id) {
     this.setState(({ taskList }) => {
@@ -41,6 +70,7 @@ class App extends Component {
       date: new Date(),
       timeMinutes: timeMinutes || '',
       timeSecundes: timeSecundes || '',
+      active: false,
     };
   }
 
@@ -80,7 +110,14 @@ class App extends Component {
             <NewTaskForm addTask={this.addTask} />
           </header>
           <section className="main">
-            <TaskList tasks={this.getFilteredTasks()} setCompleted={this.setCompleted} deleteTask={this.deleteTask} />
+            <TaskList
+              tasks={this.getFilteredTasks()}
+              setCompleted={this.setCompleted}
+              deleteTask={this.deleteTask}
+              active={this.state.active}
+              toggleTimer={this.toggleTimer}
+              updateTaskTime={this.updateTaskTime}
+            />
             <Footer
               setFilter={this.setFilter}
               activeFilter={this.state.filter}
