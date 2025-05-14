@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { nanoid } from 'nanoid';
 
 import TaskList from './components/task-list';
 import NewTaskForm from './components/new-task-form';
@@ -9,7 +10,7 @@ const App = () => {
   const [filter, setFilter] = useState('all');
 
   const createTask = (label, timeMinutes = '', timeSecundes = '') => ({
-    id: Math.floor(Math.random() * 100000),
+    id: nanoid(),
     condition: false,
     description: label,
     date: new Date(),

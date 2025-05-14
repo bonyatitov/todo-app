@@ -29,6 +29,7 @@ const Task = ({
   };
 
   const startTimer = () => {
+    // Запомнил дату запуска
     startTimeRef.current = Date.now();
     durationRef.current = Number(timeMinutes) * 60 + Number(timeSecundes);
 
